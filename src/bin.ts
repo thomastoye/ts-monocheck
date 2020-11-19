@@ -9,5 +9,10 @@ import { reportErrorsToConsole } from './report-errors-to-console'
 
   const { errors, diagnostics } = await getErrors(repoRootDir)
 
+  if (errors.errors.size === 0) {
+    process.exit(0)
+  }
+
   reportErrorsToConsole(errors, diagnostics)
+  process.exit(1)
 })()
