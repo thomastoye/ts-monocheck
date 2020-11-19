@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prePublishOnly": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "bin": {
     "ts-monocheck": "dist/bin.js"
