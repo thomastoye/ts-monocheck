@@ -1,6 +1,6 @@
 {
   "name": "ts-monocheck",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Check if all references are correct in a Typescript/yarn/lerna monorepo",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,8 @@
     "@types/node": "^12.12.2"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prePublishOnly": "yarn build"
   },
   "bin": {
     "ts-monocheck": "dist/bin.js"
