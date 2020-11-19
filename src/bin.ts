@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { getErrors } from './get-errors'
 import { reportErrorsToConsole } from './report-errors-to-console'
 
