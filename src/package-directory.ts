@@ -54,7 +54,7 @@ export class PackageDirectory {
         return parse(this.path).base
     }
 
-    findDependencies(packagesInMonorepo: readonly PackageDirectory[]): readonly PackageDirectory[] {
+    findInternalDependencies(packagesInMonorepo: readonly PackageDirectory[]): readonly PackageDirectory[] {
         const mapped = packagesInMonorepo.map(packageDir => {
             return { isDependency: this.isDependencyOfMine(packageDir), packageDir }
         })
@@ -62,23 +62,23 @@ export class PackageDirectory {
         return mapped.filter(obj => obj.isDependency).map(obj => obj.packageDir)
     }
 
-    async findUnreferencedDependencies(packagesInMonorepo: readonly PackageDirectory[]): Promise<PackageDirectory[]> {
-        const deps = this.findDependencies(packagesInMonorepo)
+    async findUnreferencedInternalDependencies(packagesInMonorepo: readonly PackageDirectory[]): Promise<PackageDirectory[]> {
+        const deps = this.findInternalDependencies(packagesInMonorepo)
 
-        const mapped = await Promise.all(deps.map(dep => {
-            return { isReferenced: this.isReferencedInMyTsconfig(dep), packageDir: dep }
+        const mapped = await Promise.all(deps.map(async dep => {
+            return { isReferenced: await this.isReferencedInMyTsconfig(dep), packageDir: dep }
         }))
 
-        return mapped.filter(dep => dep.isReferenced).map(dep => dep.packageDir)
+        return mapped.filter(dep => !dep.isReferenced).map(dep => dep.packageDir)
     }
 
     async isReferencedInMyTsconfig(pkg: PackageDirectory): Promise<boolean> {
-        return (await this.referencedPackagesInMyTsconfig()).includes(pkg)
+      const referencedByMe = await this.referencedPackagesInMyTsconfig()
+      return referencedByMe.includes(pkg)
     }
 
-    referencedPackagesInMyTsconfig(): Promise<readonly PackageDirectory[]> {
+    async referencedPackagesInMyTsconfig(): Promise<readonly PackageDirectory[]> {
         const references = (this.tsconfigJson.references || []).map(reference => join(this.path, reference.path))
-
         return Promise.all(references.map(reference => PackageDirectory.createForPath(reference)))
     }
 
