@@ -20,15 +20,15 @@ Build tsconfig.json  /home/thomas/code/weewoo/packages/tsconfig.json
 
  📦 @toye.io/weewoo-geocode   packages/weewoo-geocode
 
-    Package depends on weewoo-location, but that package is not refenced in its tsconfig.json
+    Package depends on weewoo-location, but that package is not referenced in its tsconfig.json
 
  📦 @toye.io/weewoo-reactors   packages/weewoo-reactors
 
-    Package depends on weewoo-integration-test-utils, but that package is not refenced in its tsconfig.json
-    Package depends on weewoo-server, but that package is not refenced in its tsconfig.json
+    Package depends on weewoo-integration-test-utils, but that package is not referenced in its tsconfig.json
+    Package depends on weewoo-server, but that package is not referenced in its tsconfig.json
 
  📦 @toye.io/weewoo-server-web   packages/weewoo-server-web
 
-    Package depends on weewoo-server, but that package is not refenced in its tsconfig.json
+    Package depends on weewoo-server, but that package is not referenced in its tsconfig.json
 
 ```

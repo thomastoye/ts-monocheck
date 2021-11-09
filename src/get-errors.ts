@@ -68,7 +68,7 @@ export const getErrors = async (repoRootDir: string): Promise<{ errors: TsMonore
   await Promise.all(packageDirs.map(async packageDir => {
       const unreferenced = await packageDir.findUnreferencedInternalDependencies(packageDirs)
 
-      unreferenced.forEach(unreferencedPkg => errors.addErrorForPackage(packageDir, `Package depends on ${unreferencedPkg.directoryName}, but that package is not refenced in its tsconfig.json`))
+      unreferenced.forEach(unreferencedPkg => errors.addErrorForPackage(packageDir, `Package depends on ${unreferencedPkg.directoryName}, but that package is not referenced in its tsconfig.json`))
   }))
 
   return {
