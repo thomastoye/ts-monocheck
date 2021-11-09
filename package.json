@@ -17,7 +17,7 @@
     "@types/node": "^12.12.2"
   },
   "scripts": {
-    "build": "rm -rf dist; tsc",
+    "build": "rm tsconfig.tsbuildinfo; rm -rf dist; tsc",
     "prepublishOnly": "yarn build"
   },
   "bin": {
