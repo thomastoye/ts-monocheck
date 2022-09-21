@@ -78,7 +78,10 @@ export class PackageDirectory {
     }
 
     async referencedPackagesInMyTsconfig(): Promise<readonly PackageDirectory[]> {
-        const references = (this.tsconfigJson.references || []).map(reference => join(this.path, reference.path))
+        const references = (this.tsconfigJson.references || [])
+          .filter(reference => !reference.path.startsWith('./'))
+          .map(reference => join(this.path, reference.path))
+
         return Promise.all(references.map(reference => PackageDirectory.createForPath(reference)))
     }
 
